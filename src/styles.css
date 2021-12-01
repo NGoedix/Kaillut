@@ -1,3 +1,54 @@
 body {
     background-color: #5c5f61;
 }
+
+.mainMenuLeftItem {
+    position: absolute;
+    width: 325px;
+    height: 150px;
+    z-index: 15;
+    top: 50%;
+    left: 50%;
+    margin: -75px 0 0 -325px;
+    background: rgb(27, 231, 0);
+    border-radius: 10px;
+    border: 7px solid rgb(22, 185, 0);
+}
+
+.mainMenuLeftTitle {
+    font-family: 'Comic Sans MS', Arial;
+    margin: 15px 0 0 35px;
+}
+
+.line {
+    display: inline-block;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 50%;
+    border-radius: 10px;
+    border-top: 5px solid rgb(22, 185, 0);
+}
+
+.mainMenuCenterItem {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    z-index: 15;
+    top: 50%;
+    left: 50%;
+    margin: -125px 0 0 -125px;
+    background: rgb(255, 115, 0);
+    border-radius: 100%;
+    border: 7px solid rgb(224, 71, 0);
+}
+
+.mainMenuTitle {
+    font-family: 'Comic Sans MS', Arial;
+    font-size: 3em;
+    margin: 80px 0 0 50px;
+}
+
+.remove {
+    opacity: 0;
+    width: 0;
+}
