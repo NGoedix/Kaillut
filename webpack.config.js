@@ -4,8 +4,6 @@ module.exports = {
   // APP ENTRY POINT
   entry: {
       app: path.join(__dirname, 'src', 'index.js'),
-      mainParticles: path.join(__dirname, 'public/js', 'mainParticles.js'),
-      configParticles: path.join(__dirname, 'public/js', 'configParticles.js')
   },
   // OUTPUT DIRECTORY
   output: {
