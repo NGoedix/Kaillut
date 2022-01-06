@@ -1,8 +1,6 @@
 import React from 'react';
 import Particles from "react-tsparticles";
 
-import '../../styles.css'
-
 const app = function Main() {
   return (
     <React.Fragment>
@@ -14,7 +12,7 @@ const app = function Main() {
                     value: "",
                 },
             },
-            fpsLimit: 60,
+            fpsLimit: 120,
             interactivity: {
             events: {
                 onClick: {
@@ -23,7 +21,7 @@ const app = function Main() {
                 },
                 onHover: {
                     enable: true,
-                    mode: "slow",
+                    mode: "bounce",
                 },
                 resize: false,
             },
@@ -55,14 +53,19 @@ const app = function Main() {
                     width: 6,
                 },
                 collisions: {
+                    bounce: false,
                     enable: true,
                 },
                 move: {
                     direction: "none",
                     enable: true,
+                    bounce: false,
                     outMode: "bounce",
                     random: false,
-                    speed: 1,
+                    speed: {
+                        min: 1,
+                        max: 1.5
+                    },
                     straight: false,
                 },
                 number: {
@@ -70,7 +73,7 @@ const app = function Main() {
                         enable: false,
                         value_area: 800,
                     },
-                    value: 60,
+                    value: 40,
                 },
                 opacity: {
                     value: 0.7,
@@ -79,8 +82,11 @@ const app = function Main() {
                     type: "circle",
                 },
                 size: {
-                    random: true,
-                    value: 8,
+                    random: false,
+                    value: {
+                        min: 5,
+                        max: 10
+                    }
                 },
             },
             detectRetina: true,
