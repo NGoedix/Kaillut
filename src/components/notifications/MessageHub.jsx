@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { X } from "react-feather";
 import { useTransition } from "react-spring";
-import { Main, Container, Message, Button, Content, Life } from "./styles";
+import { Container, Message, Button, Content, Life } from "./styles";
 
 let id = 0;
 

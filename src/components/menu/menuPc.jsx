@@ -11,8 +11,6 @@ import MessageHub from '../notifications/MessageHub';
 //import { createUser } from '../../api/createUser';
 import { checkGame } from '../../api/checkGame';
 
-const axios = require('axios');
-
 // TODO separar los hooks de las animaciones
 //import { MenuHook } from '../../hooks/playAnimation'
 
@@ -143,7 +141,7 @@ const app = function Main() {
         </animated.div>
         <animated.div style={aniCD} className="mainMenuCenterItem">
           <h1 className="mainMenuTitle">Kaillut</h1>
-          <animated.button style={aniPB} className="mainMenuPlayButton" onClick={() => { if(checkPin()) setMenu(3) }}>{menu == 0 ? 'JUGAR' : 'VOLVER'}</animated.button>
+          <animated.button style={aniPB} className="mainMenuPlayButton" onClick={() => { if(checkPin()) setMenu(3) }}>{menu === 0 ? 'JUGAR' : 'VOLVER'}</animated.button>
         </animated.div>
         <animated.div style={aniRD} className="mainMenuRightItem">
           <animated.h2 style={aniRT} className="mainMenuRightTitle">JUGAR</animated.h2>
