@@ -1,15 +1,15 @@
 import React from 'react';
 import MediaQuery from 'react-responsive';
 
-import MenuPc from '../../components/menu/menuPc';
-import MenuMobile from '../../components/menu/menuMobile';
+import Menu from '../../components/menuPc/menu';
+import MenuMobile from '../../components/menuMobile/menuMobile';
 
 export default function Main() {
   return (
     <React.Fragment>
       <MediaQuery minWidth={768}>
-        <MenuPc />
+        <Menu />
       </MediaQuery>
     </React.Fragment>
   )
-}
+} 

@@ -1,20 +1,11 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  // APP ENTRY POINT
-  entry: {
-      app: path.join(__dirname, 'src', 'index.js'),
-  },
-  // OUTPUT DIRECTORY
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'main.bundle.js'
-  },
-
-  // EVIROMENT MODE
   mode: process.env.NODE_ENV || 'development',
-
-  // LOADERS
+  devServer: {
+    contentBase: path.join(__dirname, './src')
+  },
+  entry: path.resolve(__dirname, "./src/index.js"),
   module: {
     rules: [
       {
@@ -23,25 +14,26 @@ module.exports = {
         use: {
           loader: "babel-loader"
         }
-      }
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
-
-  // PATH RESOLVE
-  resolve: {
-    extensions: ['.js', '.json', '.jsx'],
-
-    modules: [
-      path.resolve(__dirname, 'src'),
-      'node_modules'
-    ]
+  output: {
+    path: path.join(__dirname,'public'),
+    filename: 'main.bundle.js'
   },
-
-  // DEV SERVER ENTRY POINT
-  devServer: {
-    contentBase: path.resolve(__dirname, "./src"),
-    port: 3500,
-    watchContentBase: true,
-    open: true
-  }
+  resolve: {
+    extensions: ['.js', '.jsx','.css'],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    alias: {
+      Components: path.resolve(__dirname, './src/components/'),
+      Hooks: path.resolve(__dirname, './src/hooks/'),
+      Api: path.resolve(__dirname, './src/api/'),
+      Pages: path.resolve(__dirname, './src/pages/'),
+      Root: path.resolve(__dirname, './src')
+    },
+  },
 };
