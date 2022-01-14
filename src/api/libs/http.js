@@ -16,7 +16,7 @@ async function postRequest(endpoint, data) {
     }).then(response => response.data).catch((err) => err);
 }
 
-module.exports = {
+export {
     getRequest,
     postRequest
 }
