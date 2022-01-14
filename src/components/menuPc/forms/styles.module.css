@@ -1,0 +1,198 @@
+.formLoginContainer {
+    display: hidden;
+    position: absolute;
+    width: 600px;
+    height: 300px;
+    z-index: 14;
+    top: 30%;
+    left: 28%;
+    margin: -75px 0 0 0px;
+    background: rgb(0, 73, 231);
+    border-radius: 10px;
+    border: 7px solid rgb(0, 54, 172);
+}
+
+.formRegisterContainer {
+    display: hidden;
+    position: absolute;
+    width: 600px;
+    height: 425px;
+    z-index: 14;
+    top: 30%;
+    left: 28%;
+    margin: -75px 0 0 0px;
+    background: rgb(0, 73, 231);
+    border-radius: 10px;
+    border: 7px solid rgb(0, 54, 172);
+}
+
+.titleContainer {
+    width: 90%;
+    margin: 0 0 0 10%;
+}
+
+.title {
+    text-align: center;
+}
+
+.formContainer {
+    width: 90%;
+    height: 55%;
+    margin: auto;
+}
+
+.firstLabel {
+    font-size: 1.5em;
+    display: inline-block;
+    width: 80px;
+    margin-left: 66px;
+    margin-right: 4px;
+}
+
+.Labels {
+    font-size: 1.5em;
+    display: inline-block;
+    width: 135px;
+    margin-left: 15px;
+    text-align: right;
+}
+
+.lastLabel {
+    font-size: 1.5em;
+    display: inline-block;
+    width: 80px;
+    margin-left: 66px;
+    margin-right: 4px;
+    position: relative;
+    top: -20px;
+    right: 22px;
+}
+
+.inputs {
+    margin-top: 25px;
+    border-radius: 5px;
+    padding: 5px;
+    border: 0;
+    width: 380px;
+    text-align: center;
+    font-size: 1em;
+}
+
+.formLinkContainer {
+    margin-top: 35px;
+}
+
+.formLink {
+    color: rgb(175, 175, 175);
+    text-decoration: none;
+    font-size: 1.2em;
+    margin-right: 20px;
+    position: relative;
+    top: 12px;
+}
+
+.formLink:hover {
+    margin-right: 20px;
+    color: rgb(206, 206, 206);
+}
+
+.submit {
+    border: 2px solid rgb(224, 71, 0);
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1.05em;
+    background-color: rgb(255, 115, 0);
+    float: right;
+    font-family: 'Comic Sans MS', Arial;
+}
+
+.submit:hover {
+    background-color: rgb(230, 103, 0);
+}
+
+.submit:active {
+    background-color: rgb(207, 93, 0);
+}
+
+.switch {
+    display: inline-block;
+    height: 60px;
+    position: relative;
+    width: 390px;
+}
+
+.sliderInput {
+    display: none;
+}
+
+.slider {
+    background: linear-gradient(45deg, rgba(102,187,106,1) 0%, rgba(183,237,111,1) 49%, rgba(107,204,255,1) 51%, rgba(67,148,232,1) 100%);
+    background-size: 100% 500%;
+    background-position: 0% 0%;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 34px;
+    transition: 0.4s;
+}
+
+.slider::before {
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-position: 0% 100%;
+}
+
+@keyframes anim {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 0% 100%;
+    }
+}
+
+.sliderContainer {
+    width: 390px;
+    display: inline-flex;
+    margin-top: 15px;
+}
+
+.sliderParent {
+    width: 100%;
+}
+
+.sliderStudent {
+    display: inline-flex;
+    position: absolute;
+    top: 17px;
+    left: 23px;
+    user-select: none;
+    font-size: 1.3em;
+    cursor: pointer;
+}
+
+.sliderTeacher {
+    display: inline-flex;
+    position: absolute;
+    top: 17px;
+    left: 250px;
+    user-select: none;
+    font-size: 1.3em;
+    cursor: pointer;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.eye {  
+    position: absolute;
+    top: 217px;
+    left: 530px;
+    cursor: pointer;
+}
