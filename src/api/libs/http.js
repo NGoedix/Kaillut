@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-let server = 'http://kaillut.herokuapp.com/';
+let server = 'http://kaillut.herokuapp.com';
 
 async function getRequest(endpoint) {
     return axios(server + endpoint).then(response => response.data).catch((err) => err);
