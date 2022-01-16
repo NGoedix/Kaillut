@@ -1,7 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
 
 import Main from './pages/Index/Index';
+import Dashboard from './pages/dashboard/Index';
+import PageNotFound from './pages/PageNotFound/Index';
 
 // TODO responsive
 import '../src/styles.css'
@@ -9,7 +17,13 @@ import '../src/styles.css'
 class App extends React.Component {
   render() {
     return (
-      <Main />
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Main />} />
+          <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
     );
   }
 }
