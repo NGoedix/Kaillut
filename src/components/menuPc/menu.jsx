@@ -23,7 +23,7 @@ const app = function Main() {
   const [pinCode, setPinCode] = useState('');
   const ref = useRef(null);
 
-  const formError = (error) => ref.current(error);
+  const notification = (msg) => ref.current(msg);
 
   // Handlers
   const handlePinChange = ({ target }) => { setPinCode(target.value); }
@@ -153,8 +153,8 @@ const app = function Main() {
           <animated.span style={aniLDIL} className={styles.invitadoRightLine}></animated.span>
           <animated.input style={aniLDII} type="text" name="username" placeholder="Nombre de usuario" maxLength="16" className={styles.userInput} />
         </animated.div>
-        <Login menu={menu} formError={formError} loginState={loginState} menuState={menuState} changeLogin={changeLogin} />
-        <Register  menu={menu} formError={formError} loginState={loginState} menuState={menuState} changeLogin={changeLogin} />
+        <Login menu={menu} notification={notification} loginState={loginState} menuState={menuState} changeLogin={changeLogin} />
+        <Register  menu={menu} notification={notification} loginState={loginState} menuState={menuState} changeLogin={changeLogin} />
       </div>
       <MessageHub children={add => (ref.current = add)} />
     </React.Fragment>
