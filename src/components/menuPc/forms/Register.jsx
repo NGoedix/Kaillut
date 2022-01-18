@@ -17,16 +17,16 @@ import ClosedEye from '../../Icons/ClosedEye';
 // API
 import { createUser } from '../../../api/createUser';
 
-const Form = ({menu, menuState, loginState, changeLogin, formError}) => {
+const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
   const emailRef = useRef();
-  const usernameRef = useRef();
   const passwordRef = useRef();
   
-  const [isStudent, setRole] = useState(true);
+  const [isTeacher, setRole] = useState(true);
   const [isPassword, setTypePassword] = useState(true);
 
   // Handlers
   const handleChangeMenu = () => { changeLogin(5); }
+  const handleLostPassword = () => { notification('Una pena.'); }
   const handleChangeInputRole = ({target}) => { setRole(!target.checked); }
   const onRestHandler = () => {
     if (loginState === 4) changeLogin(1);
@@ -36,19 +36,17 @@ const Form = ({menu, menuState, loginState, changeLogin, formError}) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     let email = emailRef.current.value;
-    let username = usernameRef.current.value;
     let password = passwordRef.current.value;
-    // Change to true and rename to isTeacher
-    let role = isStudent === false ? 'student' : 'teacher';
-    // Check when data repeated
 
-    let response = await createUser({email, username, password, role});
+    let role = isTeacher ? 'teacher' : 'student';
+
+    let response = await createUser({email, password, role});
 
     if (response === true) {
       // TODO redirect
-      formError('Cuenta creada con éxito');
+      notification('Cuenta creada con éxito');
     } else {
-      formError('Error: ' + response);
+      notification('Error: ' + response);
     }
   }
 
@@ -56,10 +54,10 @@ const Form = ({menu, menuState, loginState, changeLogin, formError}) => {
   const aniRegister = useAniRegister({menu, menuState, loginState, onRest: onRestHandler});
 
   // Hooks Slider
-  const textStudent = useTextStudent({isStudent});
-  const textTeacher = useTextTeacher({isStudent});
-  const divStudent = useDivStudent({isStudent});
-  const divTeacher = useDivTeacher({isStudent});
+  const textStudent = useTextStudent({isTeacher});
+  const textTeacher = useTextTeacher({isTeacher});
+  const divStudent = useDivStudent({isTeacher});
+  const divTeacher = useDivTeacher({isTeacher});
 
   function Eye() {
     return isPassword === false 
@@ -84,16 +82,8 @@ const Form = ({menu, menuState, loginState, changeLogin, formError}) => {
             type="email" 
             name="email" 
             className={styles.inputs} 
-            placeholder="email@dominio.com" 
-          />
-          <label htmlFor="username" className={styles.Labels}>Usuario: </label>
-          <input 
-            type="text"
-            ref={usernameRef}
-            name="username"
-            id="username"
-            className={styles.inputs}
-            placeholder="Nombre de usuario"
+            placeholder="email@dominio.com"
+            required={true}
           />
           <label htmlFor="password" className={styles.Labels}>Contraseña: </label>
           <label htmlFor="password">
@@ -103,7 +93,8 @@ const Form = ({menu, menuState, loginState, changeLogin, formError}) => {
               type={ isPassword === true ? "password" : "text" } 
               className={styles.inputs} 
               name="password" 
-              placeholder="***************" 
+              placeholder="***************"
+              required={true}
             />
           <Eye />
           </label>
@@ -135,7 +126,7 @@ const Form = ({menu, menuState, loginState, changeLogin, formError}) => {
             <a 
               href="#" 
               className={styles.formLink} 
-              onClick={handleChangeMenu}
+              onClick={handleLostPassword}
             >
               ¿Olvidaste la contraseña?
             </a>
