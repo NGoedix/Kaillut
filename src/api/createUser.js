@@ -2,11 +2,11 @@ const http = require('./libs/http')
 
 export async function createUser({email, password, role}) {
 
-    if (email.trim() == '' || password.trim() == '') return 'Debes escribir el email y la contraseña.'
+    if (email.trim() == '' || password.trim() == '') return 'Debes escribir el email y la contraseña.';
 
     const data = JSON.stringify({ email: email, password: password, role: role })
 
-    const res = await http.postRequest('/api/account/register', data);º 
+    const res = await http.postRequest('/api/account/register', data);
 
     if (res.success === false) {
         if (res.error == 'internal_error') return 'Error interno.';
