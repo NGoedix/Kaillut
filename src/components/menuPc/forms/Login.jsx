@@ -5,7 +5,7 @@ import { useAniLogin } from '../../../hooks/menu/forms/useAniForm'
 
 import styles from './styles.module.css'
 
-const Form = ({menu, menuState, loginState, changeLogin}) => {
+const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -18,8 +18,8 @@ const Form = ({menu, menuState, loginState, changeLogin}) => {
 
   function handleChangeMenu () { changeLogin(2); }
 
-  const handleSubmit = () => {
-    console.log("xd");
+  const handleSubmit = async (event) => {
+    event.preventDefault();
   }
 
   return (
@@ -40,6 +40,7 @@ const Form = ({menu, menuState, loginState, changeLogin}) => {
             name="email"
             className={styles.inputs}
             placeholder="email@dominio.com"
+            required={true}
           />
           <br />
           <label htmlFor="password" className={styles.Labels}>Contraseña: </label>
@@ -50,6 +51,7 @@ const Form = ({menu, menuState, loginState, changeLogin}) => {
             name="password"
             className={styles.inputs}
             placeholder="***************"
+            required={true}
           />
           <div className={styles.formLinkContainer}>
             <a
