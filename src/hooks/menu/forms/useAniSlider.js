@@ -1,39 +1,39 @@
 import { useSpring } from "react-spring";
 
-export function useTextStudent({ isStudent }) {
+export function useTextStudent({ isTeacher }) {
   const textStudent = useSpring({
     to: {
-      opacity: isStudent === false ? 1 : 0
+      opacity: isTeacher === false ? 1 : 0
     },
     config: { duration: 400 }
   })
   return textStudent;
 }
 
-export function useTextTeacher({ isStudent }) {
+export function useTextTeacher({ isTeacher }) {
   const textTeacher = useSpring({
     to: {
-      opacity: isStudent === true ? 1 : 0
+      opacity: isTeacher === true ? 1 : 0
     },
     config: { duration: 400 }
   })
   return textTeacher;
 }
 
-export function useDivStudent({ isStudent }) {
+export function useDivStudent({ isTeacher }) {
   const divStudent = useSpring({
     to: {
-      left: isStudent === true ? '23px' : '90px'
+      left: isTeacher === true ? '23px' : '90px'
     },
     config: { duration: 500 }
   })
   return divStudent;
 }
 
-export function useDivTeacher({ isStudent }) {
+export function useDivTeacher({ isTeacher }) {
   const divTeacher = useSpring({
     to: {
-      left: isStudent === true ? '170px' : '250px'
+      left: isTeacher === true ? '170px' : '250px'
     },
     config: { duration: 500 }
   })
