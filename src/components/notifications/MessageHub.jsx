@@ -48,7 +48,7 @@ export default function MessageHub({
     children(msg => {
       setItems(state => [...state, { key: id++, msg }]);
     });
-  }, []);
+  });
 
   return (
     <Container>

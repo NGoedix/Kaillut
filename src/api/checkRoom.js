@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 const http = require('./libs/http')
 
 export async function checkRoom(game) {

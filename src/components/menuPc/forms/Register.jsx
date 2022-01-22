@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useRef, useState } from 'react';
 import { animated } from 'react-spring';
 
@@ -25,9 +26,9 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
   const [isPassword, setTypePassword] = useState(true);
 
   // Handlers
-  const handleChangeMenu = () => { changeLogin(5); }
+  const handleChangeMenu = () => changeLogin(5);
   const handleLostPassword = () => { notification('Una pena.'); }
-  const handleChangeInputRole = ({target}) => { setRole(!target.checked); }
+  const handleChangeInputRole = ({target}) => setRole(!target.checked);
   const onRestHandler = () => {
     if (loginState === 4) changeLogin(1);
     if (loginState === 5) changeLogin(4);
