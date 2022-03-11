@@ -1,0 +1,9 @@
+.nav {
+  height: 12%;
+  width: 85%;
+  float: right;
+  background-color: #F0918B;
+  border-bottom: 3px solid #704441;
+  position: relative;
+  z-index: 2;
+}

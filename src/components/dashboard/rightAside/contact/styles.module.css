@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  background-color: #BF746F;
+  margin: auto;
+  cursor: pointer;
+  border-top: 1px solid #704441;
+  border-bottom: 1px solid #704441;
+  margin-bottom: 2px;
+}
+
+.container:hover {
+  background-color: #A66560;
+}
+
+.container:active {
+  background-color: #B06B66;
+}
+
+.profilePicture {
+  width: 56px;
+  height: 56px;
+  border-radius: 100%;
+  position: relative;
+  top: 2px;
+  left: 2px;
+  transform: revert;
+  transition: 0.5s;
+}
+
+.profilePicture:hover {
+  transform: scale(1.05);
+  transition: 0.5s;
+}
+
+.profileName {
+  font-size: 1.2em;
+  margin: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.lastMsg {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0;
+  user-select: none;
+}
+
+.profileData {
+  position: relative;
+  left: 7px;
+  width: 50%;
+  height: 100%;
+}
+
+.timeContainer {
+  position: absolute;
+  right: 5px;
+  font-size: 0.8em;
+  height: 50px;
+}
+
+.hour {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
