@@ -9,8 +9,8 @@ import Login from './forms/Login';
 import Register from './forms/Register'
 
 // API
-//import { createUser } from '../../api/createUser';
-import { checkRoom } from '../../api/checkRoom';
+//import { createUser } from '../../services/createUser';
+import { checkRoom } from '../../services/checkRoom';
 
 // Styles
 import styles from './styles.module.css'

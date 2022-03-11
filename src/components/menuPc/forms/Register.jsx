@@ -16,7 +16,7 @@ import OpenEye from '../../Icons/OpenEye';
 import ClosedEye from '../../Icons/ClosedEye';
 
 // API
-import { createUser } from '../../../api/createUser';
+import { createUser } from '../../../services/createUser';
 
 const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
   const emailRef = useRef();
