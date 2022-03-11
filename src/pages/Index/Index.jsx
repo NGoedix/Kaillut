@@ -7,9 +7,12 @@ import MenuMobile from '../../components/menuMobile/menuMobile';
 export default function Main() {
   return (
     <React.Fragment>
-      <MediaQuery minWidth={1080}>
+      <MediaQuery minWidth={1081}>
         <Menu />
+      </MediaQuery>
+      <MediaQuery maxWidth={1080}>
+        <MenuMobile />
       </MediaQuery>
     </React.Fragment>
   )
-} 
+}

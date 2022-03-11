@@ -3,15 +3,13 @@ import ReactDOM from 'react-dom';
 import {
   BrowserRouter,
   Routes,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import Main from './pages/Index/Index';
 import Dashboard from './pages/dashboard/Index';
 import PageNotFound from './pages/PageNotFound/Index';
 
-// TODO responsive
 import '../src/styles.css'
 
 class App extends React.Component {

@@ -33,7 +33,6 @@ export default function Main () {
             <img src={Mobile404} className={styles.img4} alt="Página no encontrada" />
           </div>
         </MediaQuery>
-      
     </React.Fragment>
   );
 }
