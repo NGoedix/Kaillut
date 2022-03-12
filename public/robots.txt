@@ -1,3 +1,3 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Sitemap: https://kaillut.tk/sitemap.xml
+Sitemap: https://kaillut.tk/sitemap-index.xml
