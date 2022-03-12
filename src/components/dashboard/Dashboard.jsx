@@ -3,8 +3,6 @@ import React from 'react';
 import Navbar from './navbar/Navbar';
 import LeftAside from './leftAside/LeftAside';
 import RightAside from './rightAside/RightAside';
-import Main from './main/Main';
-
 /**
  * 
  * Revisar:
