@@ -1,5 +1,5 @@
 /* eslint-disable default-case */
-const http = require('./libs/http')
+const http = require('../libs/http')
 
 export async function createUser({email, password, role}) {
 
