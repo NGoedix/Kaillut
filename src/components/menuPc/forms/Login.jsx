@@ -2,9 +2,14 @@
 import React, { useRef } from "react";
 import { animated } from "react-spring";
 
+// Animation
 import { useAniLogin } from '../../../hooks/menu/forms/useAniForm'
 
+// Styles
 import styles from './styles.module.css'
+
+// API
+import { loginUser } from '../../../services/account/loginUser';
 
 const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
   const emailRef = useRef();
@@ -21,6 +26,23 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    let email = emailRef.current.value;
+    let password = passwordRef.current.value;
+
+    let res = await loginUser(email, password);
+
+    if (res.success) {
+      window.localStorage.setItem(
+        'user_token', JSON.parse(res.user.token)
+      )
+    } else {
+      if (res.error) return notification(res.error)
+      return notification('Email y/o contraseña incorrectos.')
+    }
+
+    notification(res ? 'Sesión iniciada con éxito' : res); 
+    // TODO - Redirect when res === true
   }
 
   return (

@@ -1,6 +1,7 @@
 // React
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { animated } from 'react-spring';
+import { useLocation } from 'react-router-dom';
 
 // Components
 import Particles from '../particles/particles';
@@ -9,7 +10,7 @@ import Login from './forms/Login';
 import Register from './forms/Register'
 
 // API
-//import { createUser } from '../../services/createUser';
+//import { createUser } from '../../services/account/createUser';
 import { checkRoom } from '../../services/checkRoom';
 
 // Styles
@@ -121,6 +122,13 @@ const app = function Main() {
   const aniLDIL = useAniLDIL({menu, menuState})
   const aniLDII = useAniLDII({menu, menuState})
   const aniT = useAniT({menu, menuState})
+  
+  const { state } = useLocation();
+
+  useEffect(() => {
+    if (state === 302) notification('Debes iniciar sesión para acceder a ese recurso.')
+  }, []);
+
 
   return (
     <React.Fragment>

@@ -16,7 +16,7 @@ import OpenEye from '../../Icons/OpenEye';
 import ClosedEye from '../../Icons/ClosedEye';
 
 // API
-import { createUser } from '../../../services/createUser';
+import { createUser } from '../../../services/account/createUser';
 
 const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
   const emailRef = useRef();
@@ -41,14 +41,10 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
 
     let role = isTeacher ? 'teacher' : 'student';
 
-    let response = await createUser({email, password, role});
+    let res = await createUser({email, password, role});
 
-    if (response === true) {
-      // TODO redirect
-      notification('Cuenta creada con éxito');
-    } else {
-      notification('Error: ' + response);
-    }
+    notification(res ? 'Cuenta creada con éxito' : 'Error: ' + res);
+    // TODO - Redirect when res === true
   }
 
   // Hook Register
