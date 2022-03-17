@@ -51,8 +51,7 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
       );
       navigate('/dashboard')
     } else {
-      if (res.error) return notification(res.error)
-      return notification('Email y/o contraseña incorrectos.')
+      return notification(res);
     }
   }
 
