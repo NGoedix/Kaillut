@@ -243,7 +243,7 @@ input:checked + .slider {
 
 .eye {  
     position: absolute;
-    top: 217px;
+    top: 162px;
     left: 530px;
     cursor: pointer;
 }
