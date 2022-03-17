@@ -1,7 +1,7 @@
 import * as React from "react"
 
-const SvgComponent = () => (
-  <svg width="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+const SvgComponent = ({styleName}) => (
+  <svg className={styleName} width="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M3 13v11"
       fill="none"
