@@ -1,4 +1,3 @@
-/* eslint-disable default-case */
 const http = require('../libs/http')
 
 export async function createUser({email, password, role}) {
@@ -13,5 +12,6 @@ export async function createUser({email, password, role}) {
         if (res.error.role !== 'valid') return res.error.role;
         return res.error;
     }
-    return true;
+
+    return res;
 }

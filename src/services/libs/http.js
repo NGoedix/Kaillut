@@ -1,19 +1,35 @@
 const axios = require('axios');
 
 let server = 'http://kaillut.herokuapp.com';
+server = 'http://localhost:3100'
 
-async function getRequest(endpoint) {
-    return axios(server + endpoint).then(response => response.data).catch((err) => err);
+function getRequest(endpoint, authorization) {
+    let headers = { 'Content-type': 'application/json'};
+    
+    if (authorization) 
+        headers = { 'Content-type': 'application/json', 'Authorization': `Bearer ${window.localStorage.getItem('user_token')}`};
+
+    return axios({
+        method: 'get',
+        url: server + endpoint,
+        responseType: 'json',
+        headers: headers
+    }).then(response => response.data).catch((err) => err);
 }
 
-async function postRequest(endpoint, data) {
+function postRequest(endpoint, data, authorization) {
+    let headers = { 'Content-type': 'application/json'};
+    
+    if (authorization) 
+        headers = { 'Content-type': 'application/json', 'Authorization': `Bearer ${window.localStorage.getItem('user_token')}`};
+
     return axios({
         method: 'post',
         url: server + endpoint,
         responseType: 'json',
-        headers: { 'Content-type': 'application/json' },
+        headers: headers,
         data: data
-    }).then(response => response.data).catch((err) => err);
+    }).then(response => response.data).catch((err) => err.response.data);
 }
 
 export {
