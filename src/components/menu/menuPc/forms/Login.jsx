@@ -1,19 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { animated } from "react-spring";
 
 // Animation
-import { useAniLogin } from '../../../hooks/menu/forms/useAniForm'
+import { useAniLogin } from '../../../../hooks/menu/forms/useAniForm'
 
 // Styles
 import styles from './styles.module.css'
 
 // API
-import { loginUser } from '../../../services/account/loginUser';
+import { loginUser } from '../../../../services/account/loginUser';
 
 const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
+
   const emailRef = useRef();
   const passwordRef = useRef();
+
+  const navigate = useNavigate();
 
   const onRestHandler = () => {
     if (loginState === 3) changeLogin(6);
@@ -22,7 +26,8 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
 
   const aniLogin = useAniLogin({ menu, menuState, loginState, onRest: onRestHandler });
 
-  function handleChangeMenu () { changeLogin(2); }
+  const handleLostPassword = () => notification('Una pena.');
+  const handleChangeMenu = () => changeLogin(2);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -34,15 +39,13 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
 
     if (res.success) {
       window.localStorage.setItem(
-        'user_token', JSON.parse(res.user.token)
-      )
+        'user_token', JSON.stringify(res.user.token).replaceAll("\"", "")
+      );
+      navigate('/dashboard')
     } else {
       if (res.error) return notification(res.error)
       return notification('Email y/o contraseña incorrectos.')
     }
-
-    notification(res ? 'Sesión iniciada con éxito' : res); 
-    // TODO - Redirect when res === true
   }
 
   return (
@@ -79,10 +82,17 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
           <div className={styles.formLinkContainer}>
             <a
               href="#"
-              className={styles.formLink}
+              className={styles.formLinkLogin}
               onClick={handleChangeMenu}
             >
               ¿No tienes cuenta?
+            </a>
+            <a 
+              href="#" 
+              className={styles.formLinkLostPassword} 
+              onClick={handleLostPassword}
+            >
+              ¿Olvidaste la contraseña?
             </a>
             <input type="submit" className={styles.submit} value="Iniciar sesión" />
           </div>

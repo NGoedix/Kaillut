@@ -1,29 +1,42 @@
 // React
 import React, { useState, useRef, useEffect } from 'react';
 import { animated } from 'react-spring';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // Components
-import Particles from '../particles/particles';
-import MessageHub from '../notifications/MessageHub';
+import Particles from '../../particles/particles';
+import MessageHub from '../../notifications/MessageHub';
 import Login from './forms/Login';
 import Register from './forms/Register'
+import Loading from '../../loading/loading'
+
+import Student from '../../Icons/Student';
 
 // API
-//import { createUser } from '../../services/account/createUser';
-import { checkRoom } from '../../services/checkRoom';
+import { checkRoom } from '../../../services/checkRoom';
+import { checkToken } from "../../../services/account/checkToken";
+import { getProfileInfo } from '../../../services/account/getProfileInfo';
 
 // Styles
 import styles from './styles.module.css'
 
 // Hooks
 import { useAniRD, useAniRL, useAniCD, useAniPB, useAniLD, useAniLE,
-   useAniRT, useAniRI, useAniLDI, useAniLDIT, useAniLDIL, useAniLDII, useAniT } from '../../hooks/menu/useAniMenu'
+   useAniRT, useAniRI, useAniLDI, useAniLDIT, useAniLDIL, useAniLDII, useAniT,
+   useAniCDLogged, useAniRDLogged } from '../../../hooks/menu/useAniMenu'
 
 const app = function Main() {
   const [pinCode, setPinCode] = useState('');
+  const [logged, setLogged] = useState(false);
+  const [isValidated, setValided] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+  const [username, setUsername] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [level, setLevel] = useState(1);
+
   const ref = useRef(null);
 
+  const navigate = useNavigate();
   const notification = (msg) => ref.current(msg);
 
   // Handlers
@@ -110,8 +123,10 @@ const app = function Main() {
 
   // Animations
   const aniRD = useAniRD({menu, menuState})
+  const aniRDLogged = useAniRDLogged({menu, menuState})
   const aniRL = useAniRL({menu})
   const aniCD = useAniCD({menu, menuState, onRest: handleRestAniCD})
+  const aniCDLogged = useAniCDLogged({menu, menuState, onRest: handleRestAniCD})
   const aniPB = useAniPB({menu, menuState, onRest: handleRestAniPB})
   const aniLD = useAniLD({menu, menuState})
   const aniLE = useAniLE({menu})
@@ -123,35 +138,111 @@ const app = function Main() {
   const aniLDII = useAniLDII({menu, menuState})
   const aniT = useAniT({menu, menuState})
   
-  const { state } = useLocation();
+  let { state } = useLocation();
 
   useEffect(() => {
+
     if (state === 302) notification('Debes iniciar sesión para acceder a ese recurso.')
+
+    async function isLogged() {
+
+      if (window.localStorage.getItem('user_token') != null) {
+        let token = await checkToken(window.localStorage.getItem('user_token'));
+        
+        if (token.success) {
+          let res = await getProfileInfo();
+          if (res.success) {
+            setUsername(res.user.username);
+            setEmail(res.user.email);
+            setLevel(res.user.level);
+            setLogged(true);
+          } else {
+            notification(res.error)
+          }
+        }
+        token.success ? setLogged(true) : window.localStorage.removeItem('user_token');
+      }
+      setValided(true);
+    }
+    isLogged();
+    
+    if (logged) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 5)
+    }
   }, []);
 
-
-  return (
-    <React.Fragment>
-      <Particles />
-      <div>
-        <animated.div style={aniLD} className={styles.leftContainer}>
-          <animated.h2 style={aniLE} className={styles.leftTitle}>INVITADO</animated.h2>
-          <span className={styles.leftLine}></span>
-          <animated.button style={aniLE} className={styles.sessionBtn} onClick={
+  const logoutButton = () => {
+    if (logged && isValidated) {
+      return (
+        <button 
+          className={styles.logoutButton}
+          onClick={
             () => {
-              if (menu === 1) setMenu(2);
-            }}
-          >
-            Inicio / Registro
-          </animated.button>
-        </animated.div>
-        <animated.div style={aniCD} className={styles.centerContainer}>
+              window.localStorage.removeItem('user_token');
+              window.location.reload(false);
+            }
+          }
+        >
+          Cerrar sesión
+        </button>
+      )
+    }
+  }
+
+  const LoadingComponent = () => {
+    return (
+      <Loading />
+    )
+  }
+
+  const MenuComponent = () => {
+    return (
+      <div>
+        <Particles />
+        {
+          logged && isValidated
+          ? 
+          <div className={styles.userProfileContainer}>
+            <img className={styles.profilePicture} src="https://cdn-icons-png.flaticon.com/512/147/147144.png" alt="Foto de perfil" />
+            <div className={styles.profileDatos}>
+              <p className={styles.profileUserName}>{ username === null ? email === null ? 'Usuario' : email : username}</p>
+              <Student styleName={styles.studentIcon} />
+              <span className={styles.level}>{level}</span>
+            </div>
+            <button 
+              className={styles.dashboardButton}
+              onClick={
+                () => {
+                  navigate('/dashboard')
+                }
+              }
+            >
+              Panel de control
+            </button>
+          </div>
+          :
+          <animated.div style={aniLD} className={styles.leftContainer}>
+            <animated.h2 style={aniLE} className={styles.leftTitle}>INVITADO</animated.h2>
+            <span className={styles.leftLine}></span>
+            <animated.button style={aniLE} className={styles.sessionBtn} onClick={
+              () => {
+                if (menu === 1) setMenu(2);
+              }}
+            >
+              Inicio / Registro
+            </animated.button>
+          </animated.div>
+        }
+        
+        <animated.div style={logged && isValidated ? aniCDLogged : aniCD} className={logged && isValidated ? styles.centerContainerLogged : styles.centerContainer}>
           <animated.h1 style={aniT} className={styles.title}>Kaillut</animated.h1>
           <animated.button style={aniPB} className={styles.playButton} onClick={handlePlay}>
             {menu === 1 ? 'JUGAR' : 'VOLVER'}
           </animated.button>
         </animated.div>
-        <animated.div style={aniRD} className={styles.rightContainer}>
+        <animated.div style={logged && isValidated ? aniRDLogged : aniRD} className={styles.rightContainer}>
           <animated.h2 style={aniRT} className={styles.rightTitle}>JUGAR</animated.h2>
           <animated.span style={aniRL} className={styles.rightLine}></animated.span>
           <animated.input style={aniRI} onChange={handlePinChange} className={styles.pinInput} name="pinCode" type="text" placeholder="PIN de juego" minLength="6" maxLength="8" />
@@ -163,8 +254,19 @@ const app = function Main() {
         </animated.div>
         <Login menu={menu} notification={notification} loginState={loginState} menuState={menuState} changeLogin={changeLogin} />
         <Register  menu={menu} notification={notification} loginState={loginState} menuState={menuState} changeLogin={changeLogin} />
+        {logoutButton()}
       </div>
+    )
+  }
+  
+  return (
+    <React.Fragment>
       <MessageHub children={add => (ref.current = add)} />
+      {
+      isLoading && !isValidated
+        ? LoadingComponent()
+        : MenuComponent()
+      }
     </React.Fragment>
   )
 }

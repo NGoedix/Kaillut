@@ -82,6 +82,36 @@
     margin-top: 35px;
 }
 
+.formLinkLogin {
+    color: rgb(175, 175, 175);
+    text-decoration: none;
+    font-size: 1.2em;
+    margin-right: 20px;
+    position: relative;
+    left: -16px;
+    top: 20px;
+}
+
+.formLinkLogin:hover {
+    margin-right: 20px;
+    color: rgb(206, 206, 206);
+}
+
+.formLinkLostPassword {
+    color: rgb(175, 175, 175);
+    text-decoration: none;
+    font-size: 1.2em;
+    margin-right: 20px;
+    position: relative;
+    left: -25px;
+    top: 20px;
+}
+
+.formLinkLostPassword:hover {
+    margin-right: 20px;
+    color: rgb(206, 206, 206);
+}
+
 .formLink {
     color: rgb(175, 175, 175);
     text-decoration: none;
@@ -89,6 +119,7 @@
     margin-right: 20px;
     position: relative;
     top: 12px;
+    left: 40px;
 }
 
 .formLink:hover {
@@ -104,6 +135,8 @@
     background-color: rgb(255, 115, 0);
     float: right;
     font-family: 'Comic Sans MS', Arial;
+    position: relative;
+    top: -20px;
 }
 
 .submit:hover {
@@ -111,6 +144,24 @@
 }
 
 .submit:active {
+    background-color: rgb(207, 93, 0);
+}
+
+.submitRegister {
+    border: 2px solid rgb(224, 71, 0);
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1.05em;
+    background-color: rgb(255, 115, 0);
+    float: right;
+    font-family: 'Comic Sans MS', Arial;
+}
+
+.submitRegister:hover {
+    background-color: rgb(230, 103, 0);
+}
+
+.submitRegister:active {
     background-color: rgb(207, 93, 0);
 }
 

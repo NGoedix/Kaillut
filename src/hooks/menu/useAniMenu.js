@@ -4,6 +4,20 @@ import { useSpring } from "react-spring";
 export function useAniRD({ menu, menuState }) {
   const aniRD = useSpring({
     to: { 
+        left: '50%',
+        width: menu === 3 || menu === 2 ? '0' : '325px',
+        opacity: (menu === 3 && (menuState >= 2 && menuState <= 5)) || menu === 2 ? 0 : 1
+    },
+    config: { duration: (menuState >= 2 && menuState <= 5) ? 0 : 950 }
+  })
+  return aniRD;
+}
+
+// Right DIV Logged
+export function useAniRDLogged({ menu, menuState }) {
+  const aniRD = useSpring({
+    to: { 
+        left: '40%',
         width: menu === 3 || menu === 2 ? '0' : '325px',
         opacity: (menu === 3 && (menuState >= 2 && menuState <= 5)) || menu === 2 ? 0 : 1
     },
@@ -29,7 +43,7 @@ export function useAniCD({menu, menuState, onRest}){
   const aniCD = useSpring({
     to: { 
       transform: (menu === 3 && menuState <= 3) || menu === 2 ? 'rotate(360deg)' : 'rotate(0deg)',
-      left: menu === 3 && (menuState >= 2 && menuState <= 4) ? '35%' : menu === 2 && menuState === 1 ? '30%' : '50%',
+      left: menu === 3 && (menuState >= 2 && menuState <= 4) ? '40%' : menu === 2 && menuState === 1 ? '30%' : '50%',
       top: menu === 2 && menuState === 1 ? '30%' : '50%',
       width: menu === 2 && menuState === 1 ? '200px' : '250px',
       height: menu === 2 && menuState === 1 ? '200px' : '250px'
@@ -39,6 +53,23 @@ export function useAniCD({menu, menuState, onRest}){
   })
   return aniCD;
 }
+
+// Center DIV Logged
+export function useAniCDLogged({menu, menuState, onRest}){
+  const aniCD = useSpring({
+    to: { 
+      transform: (menu === 3 && menuState <= 3) || menu === 2 ? 'rotate(360deg)' : 'rotate(0deg)',
+      left: menu === 3 && (menuState >= 2 && menuState <= 4) ? '40%' : menu === 2 && menuState === 1 ? '30%' : '40%',
+      top: menu === 2 && menuState === 1 ? '30%' : '50%',
+      width: menu === 2 && menuState === 1 ? '200px' : '250px',
+      height: menu === 2 && menuState === 1 ? '200px' : '250px'
+    },
+    config: { duration: 800 },
+    onRest,
+  })
+  return aniCD;
+}
+
 
 // Play Button
 export function useAniPB({menu, menuState, onRest}) {
@@ -105,7 +136,8 @@ export function useAniLDI({menu, menuState, onRest}) {
   const aniLDI = useSpring({
     to: {
       display: menu === 3 && (menuState >= 2 && menuState <= 4) ? 'block' : 'none',
-      width: menu === 3 && menuState === 3 ? '325px' : '0'
+      width: menu === 3 && menuState === 3 ? '325px' : '0',
+      left: '45%'
     },
     config: { duration: 500 },
     delay: menu === 3 && (menuState >= 3 && menuState <= 5) ? 0 : 1000,

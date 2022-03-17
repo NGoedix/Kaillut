@@ -1,33 +1,35 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { animated } from 'react-spring';
 
 // Hooks
-import { useAniRegister } from '../../../hooks/menu/forms/useAniForm';
-import { useTextStudent, useTextTeacher, useDivStudent, useDivTeacher } from '../../../hooks/menu/forms/useAniSlider';
+import { useAniRegister } from '../../../../hooks/menu/forms/useAniForm';
+import { useTextStudent, useTextTeacher, useDivStudent, useDivTeacher } from '../../../../hooks/menu/forms/useAniSlider';
 
 // Style
 import styles from './styles.module.css';
 
 // Icons
-import Student from '../../Icons/Student';
-import Teacher from '../../Icons/Teacher';
-import OpenEye from '../../Icons/OpenEye';
-import ClosedEye from '../../Icons/ClosedEye';
+import Student from '../../../Icons/Student';
+import Teacher from '../../../Icons/Teacher';
+import OpenEye from '../../../Icons/OpenEye';
+import ClosedEye from '../../../Icons/ClosedEye';
 
 // API
-import { createUser } from '../../../services/account/createUser';
+import { createUser } from '../../../../services/account/createUser';
 
 const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
   const emailRef = useRef();
   const passwordRef = useRef();
+
+  const navigate = useNavigate();
   
-  const [isTeacher, setRole] = useState(true);
+  const [isTeacher, setRole] = useState(false);
   const [isPassword, setTypePassword] = useState(true);
 
   // Handlers
   const handleChangeMenu = () => changeLogin(5);
-  const handleLostPassword = () => { notification('Una pena.'); }
   const handleChangeInputRole = ({target}) => setRole(!target.checked);
   const onRestHandler = () => {
     if (loginState === 4) changeLogin(1);
@@ -43,8 +45,7 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
 
     let res = await createUser({email, password, role});
 
-    notification(res ? 'Cuenta creada con éxito' : 'Error: ' + res);
-    // TODO - Redirect when res === true
+    res.success ? navigate('/dashboard') : notification('Error: ' + res);
   }
 
   // Hook Register
@@ -99,7 +100,7 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
             <label className={styles.lastLabel}>Miembro: </label>
             <div className={styles.sliderContainer}>
               <label className={styles.switch} htmlFor="checkbox">
-                <input type="checkbox" className={styles.sliderInput} onChange={handleChangeInputRole} id="checkbox" />
+                <input type="checkbox" checked={!isTeacher} className={styles.sliderInput} onChange={handleChangeInputRole} id="checkbox" />
                 <div className={styles.slider}></div>
                 <animated.div style={divStudent} className={styles.sliderStudent}>
                   <Student />
@@ -118,16 +119,9 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
               className={styles.formLink} 
               onClick={handleChangeMenu}
             >
-              ¿Tienes cuenta?
+              ¿Ya tienes una cuenta?
             </a>
-            <a 
-              href="#" 
-              className={styles.formLink} 
-              onClick={handleLostPassword}
-            >
-              ¿Olvidaste la contraseña?
-            </a>
-            <input type="submit" className={styles.submit} value="Registrarse" />
+            <input type="submit" className={styles.submitRegister} value="Registrarse" />
           </div>
         </form>
       </div>
