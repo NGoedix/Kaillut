@@ -39,7 +39,7 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
 
     if (res.success) {
       window.localStorage.setItem(
-        'user_token', JSON.stringify(res.user.token).replaceAll("\"", "")
+        'user_token', res.user.token
       );
       navigate('/dashboard')
     } else {

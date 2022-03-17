@@ -45,7 +45,15 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
 
     let res = await createUser({email, password, role});
 
-    res.success ? navigate('/dashboard') : notification('Error: ' + res);
+    if (res.success) {
+      window.localStorage.setItem(
+        'user_token', res.user.token
+      );
+      navigate('/dashboard')
+    } else {
+      if (res.error) return notification(res.error)
+      return notification('Email y/o contraseña incorrectos.')
+    }
   }
 
   // Hook Register
