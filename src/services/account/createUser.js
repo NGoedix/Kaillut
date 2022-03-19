@@ -1,10 +1,10 @@
 const http = require('../libs/http')
 
-export async function createUser({email, password, role}) {
+export async function createUser({email, password, role, captchaToken}) {
 
     if (email.trim() === '' || password.trim() === '') return 'Debes escribir el email y la contraseña.';
 
-    const res = await http.postRequest('/api/account/register', JSON.stringify({ email: email, password: password, role: role }));
+    const res = await http.postRequest('/api/account/register', JSON.stringify({ email: email, password: password, role: role, captcha: captchaToken }));
 
     if (res.success === false) {
         if (res.error.email !== 'valid') return res.error.email;

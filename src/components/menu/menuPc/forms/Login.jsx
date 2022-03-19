@@ -2,6 +2,7 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { animated } from "react-spring";
+import ReCAPTCHA from "react-google-recaptcha";
 
 // Animation
 import { useAniLogin } from '../../../../hooks/menu/forms/useAniForm'
@@ -16,6 +17,7 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
 
   const emailRef = useRef();
   const passwordRef = useRef();
+  const recaptchaRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -32,10 +34,13 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const captchaToken = await recaptchaRef.current.executeAsync();
+    recaptchaRef.current.reset();
+
     let email = emailRef.current.value;
     let password = passwordRef.current.value;
 
-    let res = await loginUser(email, password);
+    let res = await loginUser(email, password, captchaToken);
 
     if (res.success) {
       window.localStorage.setItem(
@@ -96,6 +101,13 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
             </a>
             <input type="submit" className={styles.submit} value="Iniciar sesión" />
           </div>
+          <ReCAPTCHA
+            ref={recaptchaRef}
+            sitekey={"6LcWOfEeAAAAAMNfy7JDVwTrsDe9jiDXMgd-VJlA"}
+            size="invisible"
+            theme="dark"
+            className={styles.invisible}
+          />
         </form>
       </div>
     </animated.div>

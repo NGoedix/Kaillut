@@ -247,3 +247,7 @@ input:checked + .slider {
     left: 530px;
     cursor: pointer;
 }
+
+.invisible {
+    display: none;
+}

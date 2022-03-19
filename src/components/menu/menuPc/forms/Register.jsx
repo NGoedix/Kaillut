@@ -2,6 +2,7 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { animated } from 'react-spring';
+import ReCAPTCHA from "react-google-recaptcha";
 
 // Hooks
 import { useAniRegister } from '../../../../hooks/menu/forms/useAniForm';
@@ -22,6 +23,7 @@ import { createUser } from '../../../../services/account/createUser';
 const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const recaptchaRef = useRef(null);
 
   const navigate = useNavigate();
   
@@ -38,12 +40,16 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const captchaToken = await recaptchaRef.current.executeAsync();
+    recaptchaRef.current.reset();
+
     let email = emailRef.current.value;
     let password = passwordRef.current.value;
 
     let role = isTeacher ? 'teacher' : 'student';
 
-    let res = await createUser({email, password, role});
+    let res = await createUser({email, password, role, captchaToken});
 
     if (res.success) {
       window.localStorage.setItem(
@@ -130,6 +136,13 @@ const Form = ({menu, menuState, loginState, changeLogin, notification}) => {
             </a>
             <input type="submit" className={styles.submitRegister} value="Registrarse" />
           </div>
+          <ReCAPTCHA
+            ref={recaptchaRef}
+            sitekey={"6LcWOfEeAAAAAMNfy7JDVwTrsDe9jiDXMgd-VJlA"}
+            size="invisible"
+            theme="dark"
+            className={styles.invisible}
+          />
         </form>
       </div>
     </animated.div>

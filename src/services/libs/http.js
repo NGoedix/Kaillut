@@ -1,6 +1,7 @@
 const axios = require('axios');
 
 let server = 'http://kaillut.herokuapp.com';
+server = 'http://localhost:3100'
 
 function getRequest(endpoint, authorization) {
     let headers = { 'Content-type': 'application/json'};
