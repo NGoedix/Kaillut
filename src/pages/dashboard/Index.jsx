@@ -11,8 +11,8 @@ import { checkToken } from '../../services/account/checkToken'
 
 export default function Main() {
 
-  const [isTokenValid, setTokenValid] = useState(true);
-  const [loading, setLoading] = useState(true);
+  const [isTokenValid, setTokenValid] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   let token = null;
   
@@ -23,28 +23,35 @@ export default function Main() {
       if (!token.success) {
         window.localStorage.removeItem('user_token');
         setTokenValid(false);
+      } else {
+        setTokenValid(true);
       }
+      setLoading(false);
+
     }
     fetchData();
-
-    setLoading(false);
   }, [])
+
+  const checkTokenValid = () => {
+    console.log("Token valid: ", isTokenValid)
+    console.log("Loading: ", isLoading)
+    if (isTokenValid && !isLoading) {
+      return <Dashboard />
+    } else if (isLoading) {
+      return <Loading />
+    } else {
+      return <Navigate state={302} to={{pathname: '/'}}/>
+    }
+  }
 
   return (
     <React.Fragment>
-      {
-        !isTokenValid 
-          ? <Navigate state={302} to={{pathname: '/'}}/>
-          : true
-      }
-      <Helmet>
-        <title>Kaillut - Dashboard</title>
-      </Helmet>
-      <MediaQuery minWidth={1024}>
-      {
-      loading ? <Loading /> : <Dashboard />
-      }
-      </MediaQuery>
+        <MediaQuery minWidth={1024}>
+          <Helmet>
+            <title>Kaillut - Dashboard</title>
+          </Helmet>
+          { checkTokenValid() }
+        </MediaQuery>
     </React.Fragment>
   )
 }
